@@ -1,18 +1,25 @@
 #include <stdio.h>
 #include "yemu.h"
 
-int main() {
-  while (1) {
-    if (M[pc] == 0) {
-      printf("Hit GOOD trap @ pc = %d.\n", pc);
-      for (int i = 0; i < NMEM; i++) {
-        printf("M[%02d] = 0x%02x (%d)\n", i, M[i], M[i]);
-      }
-      break;
+
+int main(){
+    while (1)
+    {
+        // point to address 0 -> error
+        if(M[pc] == 0){
+            // 遍历内存
+            for (int i = 0; i < NMEM; i++)
+            {
+                // address i mem is M[i]
+                printf("M[%02d] = 0x%02x (%d)\n", i, M[i], M[i]);
+            }
+            break;
+            
+        }
+        // execute
+        idex();
     }
-    idex();
-  }
-  return 0;
+    return 0;
 }
 
 u8 R[NREG], M[NMEM] = {
