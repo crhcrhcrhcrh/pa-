@@ -12,11 +12,13 @@ typedef union inst {
 
 void idex() {
   inst_t *cur = (inst_t *)&M[pc];
+  RTYPE(cur);
+  MTYPE(cur);
   switch (cur->rtype.op) {
-    case 0b0000: { RTYPE(cur); R[rt]   = R[rs];   pc++; break; }
-    case 0b0001: { RTYPE(cur); R[rt]  += R[rs];   pc++; break; }
-    case 0b1110: { MTYPE(cur); R[RA]   = M[addr]; pc++; break; }
-    case 0b1111: { MTYPE(cur); M[addr] = R[RA];   pc++; break; }
-    default: assert(0);
+    case 0b0000: {  R[rt]   = R[rs];   pc++; break; }
+    case 0b0001: {  R[rt]  += R[rs];   pc++; break; }
+    case 0b1110: {  R[RA]   = M[addr]; pc++; break; }
+    case 0b1111: {  M[addr] = R[RA];   pc++; break; }
+    default: printf("NOT this instruction\n");assert(0);
   }
 }
